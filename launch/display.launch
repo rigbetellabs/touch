@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+	<arg default="$(find touch)/urdf/touch.urdf" name="model"/>
+	<arg default="false" name="gui"/>
+	<arg default="$(find touch)/rviz/display.rviz" name="rvizconfig"/>
+
+	<param command="$(find xacro)/xacro $(arg model)" name="robot_description"/>
+	<param name="use_gui" value="$(arg gui)"/>
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+	<node args="-d $(arg rvizconfig)" name="rviz" pkg="rviz" required="true" type="rviz" output="screen"/>
+
+
+	<group ns="camera1">
+  <node pkg="tf" type="static_transform_publisher" name="camera_broadcaster"
+      args="2.745 1.22 -5.49 0 0 0 world camera1 10" />
+
+  <node name="camera_info" pkg="rostopic" type="rostopic"
+      args="pub camera_info sensor_msgs/CameraInfo
+     '{header: {seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: 'camera1'},
+      height: 480, width: 640, distortion_model: 'plumb_bob',
+      D: [0],
+      K: [500.0, 0.0, 320, 0.0, 500.0, 240.0, 0.0, 0.0, 1.0],
+      R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0],
+      P: [500.0, 0.0, 320, 0.0, 0.0, 500, 240, 0.0, 0.0, 0.0, 1.0, 0.0],
+      binning_x: 0, binning_y: 0,
+      roi: {x_offset: 0, y_offset: 0, height: 480, width: 640, do_rectify: false}}' -r 2"
+      output="screen"/>
+</group>
+
+ <group ns="rviz1/camera1/image">
+  <rosparam param="disable_pub_plugins">
+    - 'image_transport/compressed'
+    - 'image_transport/compressedDepth'
+    - 'image_transport/theora'
+  </rosparam>
+  </group>
+
+</launch>
