@@ -10,6 +10,7 @@ import numpy as np
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
+import socket
 
 # lower bound and upper bound for Green color
 green_lower_bound = np.array([55, 155, 250])   
@@ -17,6 +18,11 @@ green_upper_bound = np.array([65, 255, 255])
 
 low_bounding = (70,128)
 high_bounding = (569,350)
+
+serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
+serverSocket.bind(("192.168.1.157",9090));
+serverSocket.listen(5);
+
 
 class image_converter:
 
@@ -32,6 +38,10 @@ class image_converter:
     except CvBridgeError as e:
       print(e)
 
+
+    (clientConnected, clientAddress) = serverSocket.accept();
+    print("Accepeted a connection request from %s:%s"%(clientAddress[0],clientAddress[1]));
+    
     hsv = cv2.cvtColor(cv_image, cv2.COLOR_BGR2HSV)
     cropped = hsv[low_bounding[1]:high_bounding[1] , low_bounding[0]:high_bounding[0]]
     mask = cv2.inRange(cropped, green_lower_bound, green_upper_bound)
@@ -45,6 +55,8 @@ class image_converter:
       #print(x,y,w,h)
       click = ( (x+(w/2))/mask.shape[1] , (y+(h/2))/mask.shape[0] )
       print(click)
+      clientConnected.send(str(click).encode());
+
 
     cv2.imshow("Image window", mask)
     cv2.waitKey(3)
