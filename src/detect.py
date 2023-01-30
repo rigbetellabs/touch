@@ -6,9 +6,15 @@ roslib.load_manifest('touch')
 import sys
 import rospy
 import cv2
+import numpy as np
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
+
+# lower bound and upper bound for Green color
+green_lower_bound = np.array([55, 155, 250])   
+green_upper_bound = np.array([65, 255, 255])
+
 
 class image_converter:
 
@@ -24,11 +30,17 @@ class image_converter:
     except CvBridgeError as e:
       print(e)
 
-    (rows,cols,channels) = cv_image.shape
-    if cols > 60 and rows > 60 :
-      cv2.circle(cv_image, (50,50), 10, 255)
+    #(rows,cols,channels) = cv_image.shape
+    #if cols > 60 and rows > 60 :
+    #  cv2.circle(cv_image, (50,50), 10, 255)
 
-    cv2.imshow("Image window", cv_image)
+    hsv = cv2.cvtColor(cv_image, cv2.COLOR_BGR2HSV)
+    mask = cv2.inRange(hsv, green_lower_bound, green_upper_bound)
+
+    _ , contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    print(len(contours))
+
+    cv2.imshow("Image window", hsv)
     cv2.waitKey(3)
 
     try:
