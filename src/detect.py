@@ -15,8 +15,8 @@ from cv_bridge import CvBridge, CvBridgeError
 green_lower_bound = np.array([55, 155, 250])   
 green_upper_bound = np.array([65, 255, 255])
 
-low_bounding = (70,128)
-high_bounding = (569,350)
+low_bounding = (71,101)
+high_bounding = (568,378)
 
 class image_converter:
 
