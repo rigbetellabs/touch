@@ -10,6 +10,7 @@ import numpy as np
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
+import pyautogui
 
 # lower bound and upper bound for Green color
 green_lower_bound = np.array([55, 155, 250])   
@@ -17,6 +18,8 @@ green_upper_bound = np.array([65, 255, 255])
 
 low_bounding = (71,101)
 high_bounding = (568,378)
+
+sw , sh = pyautogui.size()
 
 class image_converter:
 
@@ -45,6 +48,8 @@ class image_converter:
       #print(x,y,w,h)
       click = ( (x+(w/2))/mask.shape[1] , (y+(h/2))/mask.shape[0] )
       print(click)
+      pyautogui.moveTo(click[0]*sw , click[1]*sh)
+      #pyautogui.click(click[0]*sw , click[1]*sh)
 
     cv2.imshow("Image window", mask)
     cv2.waitKey(3)
