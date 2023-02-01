@@ -19,7 +19,7 @@ void globalInit(){
     pose2.translation().x() = 1.23;
     pose2.translation().y() = 0.0;
     pose2.translation().z() = 0.0;
-    visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED, rviz_visual_tools::MEDIUM);
+    visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED, rviz_visual_tools::HIGH);
     visual_tools_->trigger();
 
     pose1.translation().x() = 1.23;
@@ -29,7 +29,7 @@ void globalInit(){
     pose2.translation().x() = 1.23;
     pose2.translation().y() = 0.69;
     pose2.translation().z() = 0.0;
-    visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED);
+    visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED, rviz_visual_tools::HIGH);
     visual_tools_->trigger();
 
     pose1.translation().x() = 1.23;
@@ -39,7 +39,7 @@ void globalInit(){
     pose2.translation().x() = 0.0;
     pose2.translation().y() = 0.69;
     pose2.translation().z() = 0.0;
-    visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED);
+    visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED, rviz_visual_tools::HIGH);
     visual_tools_->trigger();
 
     pose1.translation().x() = 0.0;
@@ -49,7 +49,7 @@ void globalInit(){
     pose2.translation().x() = 0.0;
     pose2.translation().y() = 0.0;
     pose2.translation().z() = 0.0;
-    visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED);
+    visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED, rviz_visual_tools::HIGH);
     visual_tools_->trigger();
 
 }
