@@ -12,6 +12,9 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 import pyautogui
 
+click_co = [ 0 , 0 ]
+click_flag = 0
+
 # lower bound and upper bound for Green color
 green_lower_bound = np.array([55, 155, 250])   
 green_upper_bound = np.array([65, 255, 255])
@@ -30,6 +33,9 @@ class image_converter:
     self.image_sub = rospy.Subscriber("rviz1/camera1/image",Image,self.callback)
 
   def callback(self,data):
+    
+    global click_co , click_flag
+    
     try:
       cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
     except CvBridgeError as e:
@@ -49,10 +55,17 @@ class image_converter:
       click = ( (x+(w/2))/mask.shape[1] , (y+(h/2))/mask.shape[0] )
       print(click)
       pyautogui.moveTo(click[0]*sw , click[1]*sh)
-      #pyautogui.click(click[0]*sw , click[1]*sh)
-
+      click_co = [ click[0]*sw , click[1]*sh ]
+      click_flag = 1
+      
+      
+    else:
+      if click_flag == 1:
+        pyautogui.click( click_co[0] , click_co[1] )
+        click_flag = 0
+        
     cv2.imshow("Image window", mask)
-    cv2.waitKey(3)
+    cv2.waitKey(1)
 
     try:
       self.image_pub.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
