@@ -16,11 +16,11 @@ import socket
 green_lower_bound = np.array([55, 155, 250])   
 green_upper_bound = np.array([65, 255, 255])
 
-low_bounding = (70,128)
-high_bounding = (569,350)
+low_bounding = (71,101)
+high_bounding = (568,378)
 
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
-serverSocket.bind(("192.168.1.157",9090));
+serverSocket.bind(("192.168.0.157",9094));
 serverSocket.listen(5);
 
 

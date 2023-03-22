@@ -56,6 +56,7 @@ void createRectangle (){
     pose2.translation().y() = 0.0;
     pose2.translation().z() = pose_z;
     visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED);
+
     visual_tools_->trigger();
     ROS_DEBUG_STREAM("Created Rectangle : "<< pose_x << " "<< pose_y << " " << pose_z );
 }
