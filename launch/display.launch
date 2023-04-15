@@ -2,9 +2,17 @@
 
 <launch>
 
+  <arg name="screen_width" default="4" />
+  <arg name="screen_height" default="3" />
+
+
+
 	<arg default="$(find touch)/urdf/touch.urdf" name="model"/>
 	<arg default="false" name="gui"/>
 	<arg default="$(find touch)/rviz/display.rviz" name="rvizconfig"/>
+  <arg name="screen_width_centre" default="$(eval arg('screen_width')/2.000)" />
+  <arg name="screen_height_centre" default="$(eval arg('screen_height')/2.000)" />
+  <arg name="screen_width_inverse" default="$(eval arg('screen_width')*-1.000)" />
 
 	<param command="$(find xacro)/xacro $(arg model)" name="robot_description"/>
 	<param name="use_gui" value="$(arg gui)"/>
@@ -31,8 +39,9 @@
 
 
 	<group ns="camera1">
+
   <node pkg="tf" type="static_transform_publisher" name="camera_broadcaster"
-      args="0.615 0.345 -1.23 0 0 0 world camera1 10" />
+      args="$(arg screen_width_centre) $(arg screen_height_centre) $(arg screen_width_inverse) 0 0 0 world camera1 10" />
 
   <node name="camera_info" pkg="rostopic" type="rostopic"
       args="pub camera_info sensor_msgs/CameraInfo
@@ -54,5 +63,10 @@
     - 'image_transport/theora'
   </rosparam>
   </group>
+
+  <node pkg="touch" type="create_rectangle" name="create_rectangle" output="screen">
+        <param name="pose_x" value="$(arg screen_width)"/>
+        <param name="pose_y" value="$(arg screen_height)"/>
+    </node>
 
 </launch>

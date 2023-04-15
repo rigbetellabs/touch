@@ -3,7 +3,7 @@
 
 // For visualizing things in rviz
 rviz_visual_tools::RvizVisualToolsPtr visual_tools_;
-float pose_x, pose_y, pose_z;
+float pose_x, pose_y;
 
 void globalInit(){
     visual_tools_.reset(new rviz_visual_tools::RvizVisualTools("world","/rviz_visual_markers"));
@@ -20,45 +20,45 @@ void createRectangle (){
     Eigen::Isometry3d pose2 = Eigen::Isometry3d::Identity();
     pose1.translation().x() = 0.0;
     pose1.translation().y() = 0.0;
-    pose1.translation().z() = pose_z;
+    pose1.translation().z() = 0.0;
     
     pose2.translation().x() = pose_x;
     pose2.translation().y() = 0.0;
-    pose2.translation().z() = pose_z;
+    pose2.translation().z() = 0.0;
     visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED, rviz_visual_tools::MEDIUM);
     visual_tools_->trigger();
 
     pose1.translation().x() = pose_x;
     pose1.translation().y() = 0.0;
-    pose1.translation().z() = pose_z;
+    pose1.translation().z() = 0.0;
     
     pose2.translation().x() = pose_x;
     pose2.translation().y() = pose_y;
-    pose2.translation().z() = pose_z;
+    pose2.translation().z() = 0.0;
     visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED);
     visual_tools_->trigger();
 
     pose1.translation().x() = pose_x;
     pose1.translation().y() = pose_y;
-    pose1.translation().z() = pose_z;
+    pose1.translation().z() = 0.0;
     
     pose2.translation().x() = 0.0;
     pose2.translation().y() = pose_y;
-    pose2.translation().z() = pose_z;
+    pose2.translation().z() = 0.0;
     visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED);
     visual_tools_->trigger();
 
     pose1.translation().x() = 0.0;
     pose1.translation().y() = pose_y;
-    pose1.translation().z() = pose_z;
+    pose1.translation().z() = 0.0;
     
     pose2.translation().x() = 0.0;
     pose2.translation().y() = 0.0;
-    pose2.translation().z() = pose_z;
+    pose2.translation().z() = 0.0;
     visual_tools_->publishLine(pose1.translation(), pose2.translation(),rviz_visual_tools::RED);
 
     visual_tools_->trigger();
-    ROS_DEBUG_STREAM("Created Rectangle : "<< pose_x << " "<< pose_y << " " << pose_z );
+    ROS_DEBUG_STREAM("Created Rectangle : "<< pose_x << " "<< pose_y <<" ");
 }
 
 
@@ -77,9 +77,6 @@ int main(int argc, char** argv)
         
         if(!node_handle.getParam("pose_y", pose_y))
             ROS_INFO_STREAM("Failed to get Y : "<< pose_y );
-        
-        if(!node_handle.getParam("pose_z", pose_z))
-            ROS_INFO_STREAM("Failed to get Z : "<< pose_z );
         
         createRectangle();
         ros::Duration(0.5).sleep();

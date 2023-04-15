@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
     <node pkg="touch" type="create_rectangle" name="create_rectangle" output="screen">
-        <param name="pose_x" value="2.0"/>
-        <param name="pose_y" value="2.0"/>
-        <param name="pose_z" value="0.0"/>
+        <param name="pose_x" value="1.45"/>
+        <param name="pose_y" value="0.69"/>
     </node>
 </launch>
