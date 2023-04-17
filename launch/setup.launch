@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <include file="$(find touch)/launch/display.launch"/>
+
+
+  <node pkg="touch" type="redclipper.py" name="redclipper" output="screen"/>
+
+
+</launch>

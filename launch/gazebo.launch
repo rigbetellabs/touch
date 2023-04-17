@@ -2,7 +2,7 @@
 
 <launch>
 
-	<param command="$(find xacro)/xacro $(find touch)/urdf/touch.urdf" name="robot_description"/>
+	<param command="$(find xacro)/xacro $(find touch)/urdf/touch_sim.urdf" name="robot_description"/>
 
 	<node args="-param robot_description -urdf -model touch" name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"/>
 

@@ -37,10 +37,13 @@ class redclipper:
     
     print((contours[1]))
 
+    #boundaries = contours[1]
+    #print(boundaries[0])
+
     #x,y,w,h = cv2.boundingRect(contours[1])
     #mask = cv2.rectangle(mask,(x,y),(x+w,y+h),(0,255,0),2)
 
-    cv2.imshow("Image window", mask)
+    #cv2.imshow("Image window", mask)
     cv2.waitKey(3)
 
     try:
