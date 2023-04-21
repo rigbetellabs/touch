@@ -23,7 +23,7 @@
 	<node args="-d $(arg rvizconfig)" name="rviz" pkg="rviz" required="true" type="rviz" output="screen"/>
 
 <node name="ydlidar_node" pkg="ydlidar_ros" type="ydlidar_node" output="screen" respawn="false">
-<param name="port" type="string" value="/dev/ydlidar"/>
+<param name="port" type="string" value="/dev/ttyUSB0"/>
 <param name="baudrate" type="int" value="115200"/>
 <param name="frame_id" type="string" value="lidar1"/>
 <param name="resolution_fixed" type="bool" value="true"/>
@@ -46,7 +46,7 @@
       args="$(arg screen_width_centre) $(arg screen_height_centre) $(arg screen_width_inverse) 0 0 0 world camera1 10" />
 
   <node pkg="tf" type="static_transform_publisher" name="lidar_broadcaster"
-      args="$(arg screen_width_centre) $(arg lidar_offset_inverse) 0.1 3.1415 0 1.571 world lidar1 10" />
+      args="$(arg screen_width_centre) $(arg lidar_offset_inverse) 0.1 1.571 0 3.1415 world lidar1 10" />
 
   <node name="camera_info" pkg="rostopic" type="rostopic"
       args="pub camera_info sensor_msgs/CameraInfo

@@ -101,6 +101,7 @@ echo "[Building LiDAR Driver]"
 roscd ydlidar_ros/startup
 sudo chmod 777 ./*
 sudo sh initenv.sh
+sudo chmod 666 /dev/ttyUSB0
 
 echo "[Final Package Building]"
 cd $HOME/$name_catkin_workspace
