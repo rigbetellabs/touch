@@ -72,10 +72,10 @@ int main(int argc, char** argv)
 
     globalInit();
     while (ros::ok()){
-        if(!node_handle.getParam("pose_x", pose_x))
+        if(!node_handle.getParam("pose_x _val", pose_x))
             ROS_INFO_STREAM("Failed to get X : "<< pose_x );
         
-        if(!node_handle.getParam("pose_y", pose_y))
+        if(!node_handle.getParam("pose_y_val", pose_y))
             ROS_INFO_STREAM("Failed to get Y : "<< pose_y );
         
         createRectangle();

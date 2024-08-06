@@ -2,10 +2,10 @@
 
 <launch>
 
-  <arg name="screen_width" default="1.23" />
-  <arg name="screen_height" default="0.69" />
-  <arg name="lidar_y_distance" default="0.09" />
-  <arg name="lidar_x_distance" default="0.615" />
+  <arg name="screen_width" default="0.88" />
+  <arg name="screen_height" default="0.58" />
+  <arg name="lidar_y_distance" default="0.03" />
+  <arg name="lidar_x_distance" default="0.44" />
 
 
 	<arg default="$(find touch)/urdf/touch.urdf" name="model"/>
@@ -22,22 +22,40 @@
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 	<node args="-d $(arg rvizconfig)" name="rviz" pkg="rviz" required="true" type="rviz" output="screen"/>
 
-<node name="ydlidar_node" pkg="ydlidar_ros" type="ydlidar_node" output="screen" respawn="false">
-<param name="port" type="string" value="/dev/ttyUSB0"/>
-<param name="baudrate" type="int" value="115200"/>
-<param name="frame_id" type="string" value="lidar1"/>
-<param name="resolution_fixed" type="bool" value="true"/>
-<param name="auto_reconnect" type="bool" value="true"/>
-<param name="reversion" type="bool" value="false"/>
-<param name="angle_min" type="double" value="-180"/>
-<param name="angle_max" type="double" value="180"/>
-<param name="range_min" type="double" value="0.1"/>
-<param name="range_max" type="double" value="12.0"/>
-<param name="ignore_array" type="string" value=""/>
-<param name="samp_rate" type="int" value="3"/>
-<param name="frequency" type="double" value="8"/>
-<param name="isSingleChannel" type="bool" value="true"/>
-</node>
+  <node name="ydlidar_lidar_publisher" pkg="ydlidar_ros_driver" type="ydlidar_ros_driver_node" output="screen" respawn="false">
+    <!-- string property -->
+    <param name="port" type="string" value="/dev/ttyUSB0"/>
+    <param name="frame_id" type="string" value="lidar1"/>
+    <param name="ignore_array" type="string" value=""/>
+
+    <!-- int property -->
+    <param name="baudrate" type="int" value="230400"/>
+    <!-- 0:TYPE_TOF, 1:TYPE_TRIANGLE, 2:TYPE_TOF_NET -->
+    <param name="lidar_type" type="int" value="1"/>
+    <!-- 0:YDLIDAR_TYPE_SERIAL, 1:YDLIDAR_TYPE_TCP -->
+    <param name="device_type" type="int" value="0"/>
+    <param name="sample_rate" type="int" value="4"/>
+    <param name="abnormal_check_count" type="int" value="4"/>
+    <param name="intensity_bit" type="int" value="8"/>
+
+    <!-- bool property -->
+    <param name="resolution_fixed" type="bool" value="true"/>
+    <param name="auto_reconnect" type="bool" value="true"/>
+    <param name="reversion" type="bool" value="false"/>
+    <param name="inverted" type="bool" value="false"/>
+    <param name="isSingleChannel" type="bool" value="false"/>
+    <param name="intensity" type="bool" value="true"/>
+    <param name="support_motor_dtr" type="bool" value="false"/>
+    <param name="invalid_range_is_inf" type="bool" value="false"/>
+    <param name="point_cloud_preservative" type="bool" value="false"/>
+
+    <!-- float property -->
+    <param name="angle_min" type="double" value="-180"/>
+    <param name="angle_max" type="double" value="180"/>
+    <param name="range_min" type="double" value="0.02"/>
+    <param name="range_max" type="double" value="16.0"/>
+    <param name="frequency" type="double" value="6.0"/>
+  </node>
 
 
 	<group ns="camera1">
@@ -46,7 +64,7 @@
       args="$(arg screen_width_centre) $(arg screen_height_centre) $(arg screen_width_inverse) 0 0 0 world camera1 10" />
 
   <node pkg="tf" type="static_transform_publisher" name="lidar_broadcaster"
-      args="$(arg lidar_x_distance) $(arg lidar_y_distance_inverse) 0.1 1.571 0 3.1415 world lidar1 10" />
+      args="$(arg lidar_x_distance) $(arg lidar_y_distance_inverse) 0.1 1.571 0 0 world lidar1 10" />
 
   <node name="camera_info" pkg="rostopic" type="rostopic"
       args="pub camera_info sensor_msgs/CameraInfo
