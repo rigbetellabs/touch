@@ -2,14 +2,14 @@
 
 <launch>
 
-  <arg name="screen_width" default="0.88" />
-  <arg name="screen_height" default="0.58" />
+  <arg name="screen_width" default="3.288" />
+  <arg name="screen_height" default="2.519" />
   <arg name="lidar_y_distance" default="0.03" />
   <arg name="lidar_x_distance" default="0.44" />
-  <arg name="lidar_left_y_distance" default="0.03" />
-  <arg name="lidar_left_x_distance" default="0.44" />
-  <arg name="lidar_right_y_distance" default="0.03" />
-  <arg name="lidar_right_x_distance" default="0.44" />
+  <arg name="lidar_left_y_distance" default="0.0" />
+  <arg name="lidar_left_x_distance" default="arg('screen_width')" />
+  <arg name="lidar_right_y_distance" default="0.0" />
+  <arg name="lidar_right_x_distance" default="0.0" />
 
 
 	<arg default="$(find touch)/urdf/touch.urdf" name="model"/>
