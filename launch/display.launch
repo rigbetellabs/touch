@@ -19,6 +19,8 @@
   <arg name="screen_height_centre" default="$(eval arg('screen_height')/2.000)" />
   <arg name="screen_width_inverse" default="$(eval arg('screen_width')*-1.000)" />
   <arg name="lidar_y_distance_inverse" default="$(eval arg('lidar_y_distance')*-1.000)" />
+  <arg name="lidar_left_y_distance_inverse" default="$(eval arg('lidar_left_y_distance')*-1.000)" />
+  <arg name="lidar_right_y_distance_inverse" default="$(eval arg('lidar_right_y_distance')*-1.000)" />
 
 	<param command="$(find xacro)/xacro $(arg model)" name="robot_description"/>
 	<param name="use_gui" value="$(arg gui)"/>
