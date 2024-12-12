@@ -104,10 +104,10 @@
       args="$(arg screen_width_centre) $(arg screen_height_centre) $(arg screen_width_inverse) 0 0 0 world camera1 10" />
 
   <node pkg="tf" type="static_transform_publisher" name="lidar_left_broadcaster"
-      args="$(arg lidar_left_x_distance) $(arg lidar_left_y_distance_inverse) 0.1 1.571 0 0 world lidar_left 10" />
+      args="$(arg lidar_left_x_distance) $(arg lidar_left_y_distance_inverse) 0.1 -1.571 0 0 world lidar_left 10" />
 
   <node pkg="tf" type="static_transform_publisher" name="lidar_right_broadcaster"
-      args="$(arg lidar_right_x_distance) $(arg lidar_right_y_distance_inverse) 0.1 1.571 0 0 world lidar_right 10" />
+      args="$(arg lidar_right_x_distance) $(arg lidar_right_y_distance_inverse) 0.1 -1.571 0 0 world lidar_right 10" />
 
   <node name="camera_info" pkg="rostopic" type="rostopic"
       args="pub camera_info sensor_msgs/CameraInfo
